@@ -3,11 +3,18 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import random
 from collections import defaultdict
+import os
 
-# Set up Spotify API credentials
-SPOTIPY_CLIENT_ID = "177e88ee3b474ca9af97a2e54197cb7e"
-SPOTIPY_CLIENT_SECRET = "3a4696bb3f154f52b705dd56a8943913"
-SPOTIPY_REDIRECT_URI = "http://localhost:8888/callback"
+# Load Spotify credentials from Streamlit secrets
+SPOTIPY_CLIENT_ID = st.secrets["SPOTIPY_CLIENT_ID"]
+SPOTIPY_CLIENT_SECRET = st.secrets["SPOTIPY_CLIENT_SECRET"]
+
+# Use Client Credentials Flow instead of OAuth
+sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
+    client_id=SPOTIPY_CLIENT_ID,
+    client_secret=SPOTIPY_CLIENT_SECRET
+))
+
 
 # Initialize Spotify API
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
