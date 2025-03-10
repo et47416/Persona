@@ -1,8 +1,6 @@
 import streamlit as st
 import spotipy
-from spotipy.oauth2 import SpotifyOAuth
-import random
-from collections import defaultdict
+from spotipy.oauth2 import SpotifyClientCredentials  # ✅ Make sure this is imported
 import os
 
 # Load Spotify credentials from Streamlit secrets
@@ -13,15 +11,6 @@ SPOTIPY_CLIENT_SECRET = st.secrets["SPOTIPY_CLIENT_SECRET"]
 sp = spotipy.Spotify(auth_manager=SpotifyClientCredentials(
     client_id=SPOTIPY_CLIENT_ID,
     client_secret=SPOTIPY_CLIENT_SECRET
-))
-
-
-# Initialize Spotify API
-sp = spotipy.Spotify(auth_manager=SpotifyOAuth(
-    client_id=SPOTIPY_CLIENT_ID,
-    client_secret=SPOTIPY_CLIENT_SECRET,
-    redirect_uri=SPOTIPY_REDIRECT_URI,
-    scope="user-library-read user-top-read"
 ))
 
 st.title("🎵 Music Recommender Generator")
